@@ -1,0 +1,37 @@
+.menu a{
+	color: green;
+}
+.item, .item_urgent{
+	width: 505px
+	height:100px;
+	border: 1px solid green;
+	border-radius: 10px;
+	margin: 5px;
+	padding: 5px;
+	display: inline-block;
+}
+.image{
+	width: 60px;
+	height: 60px;
+	margin: 5px;
+}
+.text_for, .city{
+	font-weight: bold;
+}
+img{
+	float: left;
+}
+.price{
+	background-color: #DEB887;
+	border-radius: 10px;
+	padding: 2px;
+}
+.main_body{
+	width: 400px;
+}
+.item_urgent{
+	background-color: yellow;
+}
+.title a{
+	font-size: 1.4em;
+}
