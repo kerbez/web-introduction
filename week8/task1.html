@@ -1,0 +1,59 @@
+<html>
+<head>
+<style>
+#news{
+	border:1px solid red;
+	width:400px;
+	height:300px;
+}
+</style>
+</head>
+<body>
+
+<div id="news"></div>
+<button id="sport">Load Sport news</button>
+<button id="politics">Load Politics news</button>
+<button id="bussiness">Load Bussiness news</button>
+
+
+<script>
+/* Write your code here */
+	let n = document.querySelector("#news");
+	function readText(text) {
+		const p = document.createElement('p');
+		p.innerHTML = text;
+		document.querySelector("#news").append(p);
+		// body...
+	}
+	function onResponce(responce){
+		return responce.text();
+	}
+	function sport(event){
+
+		while (n.hasChildNodes()) {
+	    	n.removeChild(n.lastChild);
+		}
+
+		fetch("http://demo4296963.mockable.io/news-sport").then(onResponce).then(readText);
+		console.log("in sport");
+	}
+	function politics(event){
+		while (n.hasChildNodes()) {
+	    	n.removeChild(n.lastChild);
+		}
+		fetch("http://demo4296963.mockable.io/news-politics").then(onResponce).then(readText);
+		console.log("in politics");
+	}
+	function bussiness(event){
+		while (n.hasChildNodes()) {
+	    	n.removeChild(n.lastChild);
+		}
+		fetch("http://demo4296963.mockable.io/news-bussiness").then(onResponce).then(readText);
+		console.log("in bussiness");
+	}
+	document.querySelector("#sport").addEventListener("click", sport);
+	document.querySelector("#politics").addEventListener("click", politics);
+	document.querySelector("#bussiness").addEventListener("click", bussiness);
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <style>
+      #cards .card{
+        border:1px solid red;
+        display:flex;
+        width:300px;
+      }
+      #cards .card .title{
+        flex-grow: 1;
+      }
+      #cards .card .price{
+        font-weight: bold;
+        padding-right: 20px;
+      }
+      #loading{
+        display: none;
+      }
+      #cards{
+        width:300px;
+        height:200px;
+        border: 1px solid blue;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <button>Load</button>
+    <div id="cards">
+      <img width="300px" height="200px" id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"/>
+    </div>
+
+
+    <script defer>
+    	let ca = document.querySelector("#cards");
+    	function rText(json){
+    		console.log(json);
+    		for(const a of json){
+    			let p = document.createElement('p');
+    			let pp = document.createElement('p');
+    			let ppp = document.createElement('p');
+    			let div = document.createElement('div');
+    			div.setAttribute("class", "card");
+
+    			p.innerHTML = a["maker"];
+    			let m = document.createElement('div');
+    			m.setAttribute("class", "title");
+    			m.append(p);
+
+    			pp.innerHTML = a["model"];
+    			let mo = document.createElement('div');
+    			mo.setAttribute("class", "title");
+    			mo.append(pp);
+
+    			ppp.innerHTML = a["price"];
+    			let pr = document.createElement('div');
+    			pr.setAttribute("class", "price");
+    			pr.append(ppp);
+
+    			div.append(m, mo, pr);
+    			ca.append(div);
+    			console.log(div);
+    		}
+    	}
+    	function onResponce(responce){
+    		return responce.json();
+    	}
+    	function load(event){
+    		fetch("http://demo4296963.mockable.io/listCars").then(onResponce).then(rText);
+    	}
+    	document.querySelector("button").addEventListener("click", load);
+	/* Write your code here */
+    </script>
+  </body>
+
+</html>

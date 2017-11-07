@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <style>
+      #cards .card{
+        border:1px solid red;
+        display:flex;
+        width:300px;
+      }
+      #cards .card .title{
+        flex-grow: 1;
+      }
+      #cards .card .price{
+        font-weight: bold;
+        padding-right: 20px;
+      }
+      #loading{
+        display: none;
+      }
+      #cards{
+        width:300px;
+        height:200px;
+        border: 1px solid blue;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <button>Load</button>
+    <div>
+      <button id="sortByMaker">Sort by maker</button>
+      <button id="sortByPrice">Sort by price</button>
+    </div>
+    <div id="cards">
+      <img width="300px" height="200px" id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"/>
+    </div>
+
+
+    <script defer>
+	/* Write your code here */
+		let ca = document.querySelector("#cards");
+		let resp;
+		function price(){
+			resp.sort((a,b) => a.price -(b.price));
+    		l();
+		}
+		function maker(){
+			resp.sort((a,b) => a.maker.localeCompare(b.maker));
+    		l();
+		}
+    	function l(){
+    		let n = document.querySelector("#cards");
+			while (n.hasChildNodes()) {
+		    	n.removeChild(n.lastChild);
+			}
+    		for(const a of resp){
+    			let p = document.createElement('p');
+    			let pp = document.createElement('p');
+    			let ppp = document.createElement('p');
+    			let div = document.createElement('div');
+    			div.setAttribute("class", "card");
+
+    			p.innerHTML = a["maker"];
+    			let m = document.createElement('div');
+    			m.setAttribute("class", "title");
+    			m.append(p);
+
+    			pp.innerHTML = a["model"];
+    			let mo = document.createElement('div');
+    			mo.setAttribute("class", "title");
+    			mo.append(pp);
+
+    			ppp.innerHTML = a["price"];
+    			let pr = document.createElement('div');
+    			pr.setAttribute("class", "price");
+    			pr.append(ppp);
+
+    			div.append(m, mo, pr);
+    			ca.append(div);
+    			console.log(div);
+    		}
+    	}
+    	function onSuccess(responce){
+    		resp = responce;
+    		l();
+    	}
+    	function onResponce(responce){
+    		return responce.json().then(onSuccess);
+    	}
+
+    	function load(event){
+    		fetch("http://demo4296963.mockable.io/listCars").then(onResponce).then(rText);
+    	}
+
+    	document.querySelector("button").addEventListener("click", load);
+
+    	document.querySelector("#sortByPrice").addEventListener("click", price);
+    	document.querySelector("#sortByMaker").addEventListener("click", maker);
+    </script>
+  </body>
+
+</html>
